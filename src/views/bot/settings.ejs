@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações do Bot - WhatsApp Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">WhatsApp Panel</span>
+                <button id="toggle-sidebar" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="sidebar-menu-item">
+                        <a href="/dashboard" class="sidebar-menu-link">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot" class="sidebar-menu-link">
+                            <i class="fas fa-robot"></i>
+                            <span>Gerenciar Números</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/menus" class="sidebar-menu-link">
+                            <i class="fas fa-list"></i>
+                            <span>Menus e Respostas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/settings" class="sidebar-menu-link active">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/logout" class="sidebar-menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <div class="main-header">
+                <h1>Configurações do Bot</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="btn btn-secondary">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <form id="settings-form" class="settings-form">
+                <!-- Status Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Configurações de Status</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" name="showOnline" id="showOnline">
+                            Marcar o número como online?
+                        </label>
+                        <small class="form-help">O número aparecerá como "online" no WhatsApp</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" name="markRead" id="markRead">
+                            Marcar mensagens como visualizadas?
+                        </label>
+                        <small class="form-help">As mensagens recebidas serão marcadas como lidas automaticamente</small>
+                    </div>
+                </div>
+
+                <!-- Response Delay Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Configuração de Delay de Resposta</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Delay</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="delayType" value="fixed" checked>
+                                Fixo
+                            </label>
+                            <label>
+                                <input type="radio" name="delayType" value="random">
+                                Aleatório
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="fixed-delay" class="form-group">
+                        <label class="form-label">Tempo de Delay (ms)</label>
+                        <input type="number" name="fixedDelay" min="500" value="1000" class="form-input">
+                        <small class="form-help">Mínimo: 500ms</small>
+                    </div>
+
+                    <div id="random-delay" class="form-group" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label class="form-label">Mínimo (ms)</label>
+                                <input type="number" name="minDelay" min="500" value="500" class="form-input">
+                            </div>
+                            <div class="form-group half">
+                                <label class="form-label">Máximo (ms)</label>
+                                <input type="number" name="maxDelay" min="500" value="4000" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Configurações do Menu Inicial</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Enviar menu inicial quando:</label>
+                        <select name="menuTrigger" class="form-input">
+                            <option value="new_chat">Iniciar nova conversa</option>
+                            <option value="specific_message">Enviar mensagem específica</option>
+                            <option value="contains">Mensagem contiver termo específico</option>
+                        </select>
+                    </div>
+
+                    <div id="trigger-config" class="form-group" style="display: none;">
+                        <label class="form-label">Termo específico</label>
+                        <input type="text" name="triggerTerm" class="form-input" placeholder="Ex: menu, ajuda">
+                    </div>
+                </div>
+
+                <!-- Away Message Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Mensagem de Ausência</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" name="enableAwayMessage" id="enableAwayMessage">
+                            Ativar mensagem de ausência
+                        </label>
+                    </div>
+
+                    <div id="away-message-config" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Horário de Ativação</label>
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label class="form-label">Das</label>
+                                    <input type="time" name="awayStart" class="form-input">
+                                </div>
+                                <div class="form-group half">
+                                    <label class="form-label">Até</label>
+                                    <input type="time" name="awayEnd" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Mensagem de Ausência</label>
+                            <textarea name="awayMessage" class="form-input" rows="3" 
+                                    placeholder="Ex: Olá! No momento estamos fora do horário de atendimento..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inactivity Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Tempo de Inatividade</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Encerrar conversa após (minutos)</label>
+                        <input type="number" name="inactivityTimeout" min="1" value="10" class="form-input">
+                        <small class="form-help">O bot encerrará a conversa após este período de inatividade</small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                    <button type="reset" class="btn btn-secondary">Restaurar Padrões</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Developed by hiudy</p>
+    </footer>
+
+    <script src="/js/settings.js"></script>
+</body>
+</html>
