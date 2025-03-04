@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">WhatsApp Panel</span>
+                <button id="toggle-sidebar" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="sidebar-menu-item">
+                        <a href="/dashboard" class="sidebar-menu-link active">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot" class="sidebar-menu-link">
+                            <i class="fas fa-robot"></i>
+                            <span>Gerenciar Números</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/menus" class="sidebar-menu-link">
+                            <i class="fas fa-list"></i>
+                            <span>Menus e Respostas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/settings" class="sidebar-menu-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/logout" class="sidebar-menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <div class="main-header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="btn btn-secondary">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Widgets Grid -->
+            <div class="widgets-container">
+                <!-- Messages Sent Widget -->
+                <div class="widget" draggable="true" id="messages-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="fas fa-paper-plane"></i>
+                            Mensagens Enviadas
+                        </h3>
+                    </div>
+                    <div class="widget-value">2,547</div>
+                    <div class="widget-chart">
+                        <canvas id="messagesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Unique Chats Widget -->
+                <div class="widget" draggable="true" id="chats-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="fas fa-comments"></i>
+                            Chats Ativos
+                        </h3>
+                    </div>
+                    <div class="widget-value">183</div>
+                    <div class="widget-chart">
+                        <canvas id="interactionsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Active Menus Widget -->
+                <div class="widget" draggable="true" id="menus-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="fas fa-list"></i>
+                            Menus Ativos
+                        </h3>
+                    </div>
+                    <div class="widget-value">12</div>
+                    <div class="widget-info">
+                        <span class="badge success">5 principais</span>
+                        <span class="badge info">7 submenus</span>
+                    </div>
+                </div>
+
+                <!-- Response Time Widget -->
+                <div class="widget" draggable="true" id="response-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="fas fa-clock"></i>
+                            Tempo Médio de Resposta
+                        </h3>
+                    </div>
+                    <div class="widget-value">2.3s</div>
+                    <div class="widget-info">
+                        <span class="badge success">-0.5s que ontem</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connected Numbers Section -->
+            <div class="widget">
+                <div class="widget-header">
+                    <h3 class="widget-title">Números Conectados</h3>
+                    <button class="btn btn-primary" id="connect-number">
+                        <i class="fas fa-plus"></i>
+                        Conectar Novo Número
+                    </button>
+                </div>
+                <div class="numbers-list">
+                    <!-- Numbers will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qr-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Conectar Número</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Número de WhatsApp</label>
+                <input type="tel" class="form-input" id="whatsapp-number" placeholder="Ex: 5511999999999">
+            </div>
+            <div class="qr-container">
+                <div id="qr-code"></div>
+                <p class="qr-instructions">
+                    Abra o WhatsApp no seu celular<br>
+                    Vá em Configurações > Aparelhos > Vincular um dispositivo<br>
+                    Aponte a câmera para este código QR
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancelar</button>
+                <button class="btn btn-primary" id="generate-qr">Gerar Código QR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Developed by hiudy</p>
+    </footer>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
