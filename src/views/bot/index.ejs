@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Números - WhatsApp Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar (same as dashboard) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">WhatsApp Panel</span>
+                <button id="toggle-sidebar" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="sidebar-menu-item">
+                        <a href="/dashboard" class="sidebar-menu-link">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot" class="sidebar-menu-link active">
+                            <i class="fas fa-robot"></i>
+                            <span>Gerenciar Números</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/menus" class="sidebar-menu-link">
+                            <i class="fas fa-list"></i>
+                            <span>Menus e Respostas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/bot/settings" class="sidebar-menu-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="/logout" class="sidebar-menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <div class="main-header">
+                <h1>Gerenciamento de Números</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="btn btn-secondary">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="add-number" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Conectar Novo Número
+                    </button>
+                </div>
+            </div>
+
+            <!-- Numbers List -->
+            <div class="numbers-container">
+                <div class="numbers-grid" id="numbers-grid">
+                    <!-- Empty State -->
+                    <div class="empty-state" id="empty-state">
+                        <img src="/img/empty-state.svg" alt="Nenhum número conectado">
+                        <h2>Nenhum número conectado</h2>
+                        <p>Conecte seu primeiro número WhatsApp para começar!</p>
+                        <button class="btn btn-primary" id="connect-first">
+                            <i class="fas fa-plus"></i>
+                            Conectar Número
+                        </button>
+                    </div>
+
+                    <!-- Number Card Template -->
+                    <template id="number-card-template">
+                        <div class="number-card">
+                            <div class="number-header">
+                                <div class="number-profile">
+                                    <img src="" alt="Profile Picture" class="profile-pic">
+                                    <div class="number-info">
+                                        <h3 class="number-name"></h3>
+                                        <p class="number-id"></p>
+                                    </div>
+                                </div>
+                                <div class="number-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="status-text"></span>
+                                </div>
+                            </div>
+                            <div class="number-actions">
+                                <button class="btn btn-secondary btn-sm toggle-status">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Ligar/Desligar</span>
+                                </button>
+                                <button class="btn btn-secondary btn-sm rename-number">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Renomear</span>
+                                </button>
+                                <button class="btn btn-secondary btn-sm reconnect-number">
+                                    <i class="fas fa-sync"></i>
+                                    <span>Reconectar</span>
+                                </button>
+                                <button class="btn btn-danger btn-sm delete-number">
+                                    <i class="fas fa-trash"></i>
+                                    <span>Apagar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qr-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Conectar Novo Número</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="whatsapp-number" class="form-label">Número do WhatsApp</label>
+                    <input type="tel" id="whatsapp-number" class="form-input" 
+                           placeholder="Ex: 5511999999999" required>
+                    <small class="form-help">Digite o número com DDD e código do país</small>
+                </div>
+                <div class="qr-container">
+                    <div id="qr-code-display"></div>
+                    <div class="qr-instructions">
+                        <h3>Como conectar:</h3>
+                        <ol>
+                            <li>Abra o WhatsApp no seu celular</li>
+                            <li>Toque em Menu <i class="fas fa-ellipsis-v"></i> ou Configurações <i class="fas fa-cog"></i></li>
+                            <li>Selecione "Aparelhos conectados"</li>
+                            <li>Toque em "Conectar um aparelho"</li>
+                            <li>Aponte a câmera para este código QR</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancelar</button>
+                <button class="btn btn-primary" id="generate-qr">
+                    <i class="fas fa-qrcode"></i>
+                    Gerar Código QR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirmar Ação</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancelar</button>
+                <button class="btn btn-danger" id="confirm-action">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Developed by hiudy</p>
+    </footer>
+
+    <script src="/js/bot.js"></script>
+</body>
+</html>
