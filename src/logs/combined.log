@@ -1,0 +1,17 @@
+{"level":"debug","message":"Logging initialized at debug level","timestamp":"2025-03-04 14:48:07"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-03-04 14:48:07"}
+{"level":"warn","message":"Unauthorized access attempt from IP: ::1","timestamp":"2025-03-04 14:48:34"}
+{"level":"warn","message":"Failed login attempt for email: hiudyyy@gmail.com from IP: ::1","timestamp":"2025-03-04 14:48:45"}
+{"level":"warn","message":"Failed login attempt for email: admin@example.com from IP: ::1","timestamp":"2025-03-04 14:49:07"}
+{"level":"info","message":"Successful login for email: admin@example.com from IP: ::1","timestamp":"2025-03-04 14:49:19"}
+{"level":"debug","message":"Logging initialized at debug level","timestamp":"2025-03-04 15:20:05"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-03-04 15:20:06"}
+{"level":"debug","message":"Logging initialized at debug level","timestamp":"2025-03-04 15:24:37"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-03-04 15:24:37"}
+{"level":"info","message":"User logged out: admin@example.com","timestamp":"2025-03-04 15:25:41"}
+{"level":"error","message":"Error: /project/sandbox/user-workspace/src/views/auth/login.ejs:1\n >> 1| <%- include('../layouts/main') %>\n    2| <form action=\"/login\" method=\"POST\">\n    3|     <input type=\"hidden\" name=\"csrfToken\" value=\"<%= csrfToken %>\">\n    4|     <div>\n\n/project/sandbox/user-workspace/src/views/layouts/main.ejs:59\n    57|         <!-- Main Content -->\n    58|         <main class=\"main-content\" id=\"main-content\">\n >> 59|             <%- body %>\n    60|         </main>\n    61|     </div>\n    62| \n\nbody is not defined","timestamp":"2025-03-04 15:25:41"}
+{"level":"error","message":"Error: /project/sandbox/user-workspace/src/views/auth/login.ejs:1\n >> 1| <%- include('../layouts/main') %>\n    2| <form action=\"/login\" method=\"POST\">\n    3|     <input type=\"hidden\" name=\"csrfToken\" value=\"<%= csrfToken %>\">\n    4|     <div>\n\n/project/sandbox/user-workspace/src/views/layouts/main.ejs:59\n    57|         <!-- Main Content -->\n    58|         <main class=\"main-content\" id=\"main-content\">\n >> 59|             <%- body %>\n    60|         </main>\n    61|     </div>\n    62| \n\nbody is not defined","timestamp":"2025-03-04 15:25:44"}
+{"level":"error","message":"Error: /project/sandbox/user-workspace/src/views/auth/login.ejs:1\n >> 1| <%- include('../layouts/main') %>\n    2| <form action=\"/login\" method=\"POST\">\n    3|     <input type=\"hidden\" name=\"csrfToken\" value=\"<%= csrfToken %>\">\n    4|     <div>\n\n/project/sandbox/user-workspace/src/views/layouts/main.ejs:59\n    57|         <!-- Main Content -->\n    58|         <main class=\"main-content\" id=\"main-content\">\n >> 59|             <%- body %>\n    60|         </main>\n    61|     </div>\n    62| \n\nbody is not defined","timestamp":"2025-03-04 15:25:47"}
+{"level":"warn","message":"Unauthorized access attempt from IP: ::1","timestamp":"2025-03-04 15:39:43"}
+{"level":"info","message":"Successful login for email: admin@example.com from IP: ::1","timestamp":"2025-03-04 15:39:46"}
+{"level":"info","message":"Successful login for email: admin@example.com from IP: ::1","timestamp":"2025-03-04 15:39:53"}
